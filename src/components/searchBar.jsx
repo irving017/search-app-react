@@ -13,7 +13,8 @@ class SearchBar extends Component {
 
   onSubmit=(e)=>{
     e.preventDefault()
-    const {param}= this.state
+    const {param} = this.state
+    this.props.getProducts(param)
   }
 
   render() {
