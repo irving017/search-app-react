@@ -11,30 +11,38 @@ const endPoint = 'http://www.liverpool.com.mx/tienda/'
 class App extends Component {
 
   state={
-    products:[]
+    products:[],
+    message:''
   }
 
   getProducts=(param)=>{
     axios.get(endPoint+`?s=${param}&d3106047a194921c01969dfdec083925=json`)
     .then(response=>{
-      console.log(response.data.contents[0].mainContent[3].contents[0].records)
-      this.setState({products:response.data.contents[0].mainContent[3].contents[0].records})
+      const noMatchMessage = `Tu busqueda ${param} arrojo 0 resultados` 
+      const productsFind=response.data.contents[0].mainContent[3].contents[0].records
+      //console.log(productsFind)
+      console.log(response)
+      productsFind.length!=0?this.setState({products:productsFind}):this.setState({message:noMatchMessage,products:[]})
+      
     })
     .catch(e=>console.log(e))
   }
 
   render() {
-    const {products}= this.state
+    const {products,message}= this.state
     return (
       <div>
         <SearchBar getProducts={this.getProducts}/>
-        <Grid container spacing={24}>
+        <div style={{backgroundColor:'#F5F5F5'}}>
+        {products.length!=0?
+        <Grid container spacing={16} justify={'center'} style={{padding:40}}>
         {products.map((p,i)=>
-        <Grid item>
-        <ShowProducts key={i} p={p}/>
+        <Grid key={i} item>
+        <ShowProducts p={p}/>
         </Grid>
         )}
-        </Grid>
+        </Grid>:<h2>{message}</h2>}
+        </div>
       </div>
     );
   }
