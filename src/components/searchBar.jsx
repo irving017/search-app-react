@@ -17,10 +17,12 @@ class SearchBar extends Component {
   }
 
   componentWillMount(){
-    console.log(localStorage.getItem('client_path'))
+    let clientPath = localStorage.getItem('client_path')
+    clientPath = clientPath?clientPath.split(','):[];
+    clientPath.push(window.location.href)
+    localStorage.setItem('client_path',clientPath.toString())
     const param = this.props.match.params.params
     if(param!==undefined)this.getProducts(param)
-    //localStorage.setItem('client_path',window.location.href)
   }
 
   getProducts=(param)=>{
@@ -42,7 +44,7 @@ class SearchBar extends Component {
   }
   onSubmit=(event)=>{
     const {link}=this.state
-    {link===''?event.preventDefault():this.props.history.push(`/tienda/${link}`)}
+    link===''?event.preventDefault():this.props.history.push(`/tienda/${link}`)
   }
 
   render() {
@@ -56,9 +58,9 @@ class SearchBar extends Component {
       </form>
       </div>
       {totalProducts!==0?
-        <div style={{backgroundColor:'#F5F5F5'}}>
+        <div style={{backgroundColor:'#F5F5F5',width:'100vw'}}>
         {/* <Pagination total={totalProducts} perPage={productsPerPage} changePage={this.changePage}/> */}
-        <Grid container spacing={16} justify={'center'} style={{padding:40}}>
+        <Grid container spacing={16} justify={'center'} style={{padding:40,margin:0}}>
         {products.map((p,i)=>
         <Grid key={i} item>
         <ShowProducts p={p}/>
