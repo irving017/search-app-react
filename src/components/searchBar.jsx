@@ -3,7 +3,7 @@ import ShowProducts from './showProducts';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios'
 
-const endPoint = 'http://www.liverpool.com.mx/tienda/'
+const endPoint = 'https://www.liverpool.com.mx/tienda/'
 
 class SearchBar extends Component {
   
@@ -32,7 +32,6 @@ class SearchBar extends Component {
       const productsFind=response.data.contents[0].mainContent[3].contents[0].records
       const totalProductsFind=response.data.contents[0].mainContent[3].contents[0].totalNumRecs
       const productsPerPageFind = response.data.contents[0].mainContent[3].contents[0].recsPerPage
-      //console.log(productsFind)
       productsFind.length!==0?this.setState({products:productsFind,totalProducts:totalProductsFind,search:param,productsPerPage:productsPerPageFind}):this.setState({message:noMatchMessage,products:[],totalProducts:0,search:0})      
     })
     .catch(e=>console.log(e))
@@ -59,7 +58,6 @@ class SearchBar extends Component {
       </div>
       {totalProducts!==0?
         <div style={{backgroundColor:'#F5F5F5',width:'100%'}}>
-        {/* <Pagination total={totalProducts} perPage={productsPerPage} changePage={this.changePage}/> */}
         <Grid container spacing={16} justify={'center'} style={{padding:40,margin:0,width:'100%'}}>
         {products.map((p,i)=>
         <Grid key={i} item>
