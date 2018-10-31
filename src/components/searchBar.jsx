@@ -51,16 +51,16 @@ class SearchBar extends Component {
     const {products,message,totalProducts}= this.state
     return (
       <div>
-      <div style={{width:'100vw',height:'10vh',backgroundColor:'#ED0093',display:'flex'}}> 
+      <div style={{width:'100%',height:'10vh',backgroundColor:'#ED0093',display:'flex'}}> 
       <div style={{width:'20%'}}><img src="https://assets.liverpool.com.mx/assets/images/logos/liverpool-logo.svg"style={{width:'70%',height:'80%',padding:'3% 10%'}} alt=""/></div>
       <form style={{width:'80%'}} onSubmit={this.onSubmit}>
       <input  onChange={this.onChange} placeholder="Buscar" type="text" style={{width:'80%',height:'40%',margin:'2% 0%'}}/>
       </form>
       </div>
       {totalProducts!==0?
-        <div style={{backgroundColor:'#F5F5F5',width:'100vw'}}>
+        <div style={{backgroundColor:'#F5F5F5',width:'100%'}}>
         {/* <Pagination total={totalProducts} perPage={productsPerPage} changePage={this.changePage}/> */}
-        <Grid container spacing={16} justify={'center'} style={{padding:40,margin:0}}>
+        <Grid container spacing={16} justify={'center'} style={{padding:40,margin:0,width:'100%'}}>
         {products.map((p,i)=>
         <Grid key={i} item>
         <ShowProducts p={p}/>
